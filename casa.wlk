@@ -1,7 +1,7 @@
 import cosas.* 
 
 object casa {
-    const property cosas = #{}
+    const property cosas = []
 
     method comprar(cosa){
         //registra una compra por ejemplo heladera
@@ -16,14 +16,17 @@ object casa {
             cosa.categoria() == categoria})
 	}
 
+    method ultimoComprado() {
+		return cosas.last()
+	}
+
     method vieneDeComprar(categoria){
-        return cosas.last({ cosa =>
-            cosa.categoria() == categoria})
+        return self.ultimoComprado().categoria() == categoria
     }
 
     method esDerrochona(){
         return cosas.sum({cosa => 
-            cosa.precio()})
+            cosa.precio()}) >= 9000
     }
 
     method compraMasCara() {
@@ -38,7 +41,7 @@ object casa {
 
     method malaEpoca(){
         return cosas.all({cosa =>
-            cosa.categoria() == comida})
+            cosa.categoria() == comida}) //No entiendo lo que me señala
     }
 
     method queFaltaComprar(lista){
