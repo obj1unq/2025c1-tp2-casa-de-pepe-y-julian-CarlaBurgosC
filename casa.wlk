@@ -1,4 +1,95 @@
 import cosas.* 
 
-object casaDePepeYJulian {
+object casa {
+    const property cosas = []
+
+    method comprar(cosa){
+        //registra una compra por ejemplo heladera
+        cosas.add(cosa)
+    }
+    method cantidadDeCosasCompradas(){
+        return cosas.size()
+    }
+    
+    method tieneAlgun(categoria){
+		return cosas.any({cosa => 
+            cosa.categoria() == categoria})
+	}
+
+    method ultimoComprado() {
+		return cosas.last()
+	}
+
+    method vieneDeComprar(categoria){
+        return self.ultimoComprado().categoria() == categoria
+    }
+
+    method esDerrochona(){
+        return cosas.sum({cosa => 
+            cosa.precio()}) >= 9000
+    }
+
+    method compraMasCara() {
+        return cosas.max({cosa => 
+            cosa.precio()})
+    }
+
+    method comprados(categoria){
+        return cosas.filter({cosa => 
+            cosa.categoria() == categoria})
+    }
+
+    method malaEpoca(){
+        return cosas.all({cosa =>
+            cosa.categoria().esComida()}) 
+    }
+
+    method cosaComprada(cosa){
+        return cosas.contains(cosa)
+    }
+
+    method queFaltaComprar(lista){
+        return lista.filter({cosa =>
+            not self.cosaComprada(cosa)})
+    }
+
+    method faltaComida(){
+        return cosas.count({cosa =>
+            self.esComida()}) >=2 //da error
+    }
+
+    method categoriasCompradas(){
+
+    }
+
+}
+
+object cuentaCorriente {
+    var property saldo = 0
+
+    method suma(_saldo){
+        saldo += _saldo
+    }
+
+    method resta(_saldo){
+        saldo -= _saldo
+    }
+
+}
+
+object cuentaConGastos{
+    var property saldo = 0
+    var property costOperacion = 0
+
+    const property deposito = 1000
+
+    method suma(_saldo){
+        saldo = saldo + _saldo - self.costOperacion()
+    }
+
+    method resta(_saldo){
+        saldo = saldo - (_saldo + self.costOperacion())
+    }
+
+
 }
