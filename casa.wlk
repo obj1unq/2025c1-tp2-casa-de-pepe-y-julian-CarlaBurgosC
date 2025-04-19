@@ -3,7 +3,6 @@ import cosas.*
 object casa {
     const property cosas = #{}
 
-
     method comprar(cosa){
         //registra una compra por ejemplo heladera
         cosas.add(cosa)
@@ -44,11 +43,41 @@ object casa {
 
     method queFaltaComprar(lista){
         return lista.filter({cosa =>
-            not self.comprada(cosa)})
+            not self.comprados(cosa)})
     }
 
     method faltaComida(){
         
     }
+
+}
+
+object cuentaCorriente {
+    var property saldo = 0
+
+    method suma(_saldo){
+        saldo += _saldo
+    }
+
+    method resta(_saldo){
+        saldo -= _saldo
+    }
+
+}
+
+object cuentaConGastos{
+    var property saldo = 0
+    var property costOperacion = 0
+
+    const property deposito = 1000
+
+    method suma(_saldo){
+        saldo = saldo + _saldo - self.costOperacion()
+    }
+
+    method resta(_saldo){
+        saldo = saldo - (_saldo + self.costOperacion())
+    }
+
 
 }
