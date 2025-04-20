@@ -41,16 +41,25 @@ object casa {
 
     method malaEpoca(){
         return cosas.all({cosa =>
-            cosa.categoria() == comida}) //No entiendo lo que me señala
+            cosa.categoria().esComida()}) 
+    }
+
+    method cosaComprada(cosa){
+        return cosas.contains(cosa)
     }
 
     method queFaltaComprar(lista){
         return lista.filter({cosa =>
-            not self.comprados(cosa)})
+            not self.cosaComprada(cosa)})
     }
 
     method faltaComida(){
-        
+        return cosas.count({cosa =>
+            self.esComida()}) >=2 //da error
+    }
+
+    method categoriasCompradas(){
+
     }
 
 }
